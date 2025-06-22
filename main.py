@@ -33,9 +33,9 @@ def main():
                 continue
     
     with yt_dlp.YoutubeDL(playlist_opts) as ydl:
-        for playlist_url in PLAYLISTS:
+        for playlist in PLAYLISTS:
             try:
-                ydl.download([playlist_url])
+                ydl.download([playlist])
             except:
                 continue
 
