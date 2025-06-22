@@ -1,6 +1,21 @@
 import os
 import yt_dlp
+
+# If you create data.py file
 from data import URLS, PLAYLISTS
+
+
+"""
+# Other solution is to uncomment this section and fill up array variables with hrefs instead of creating data.py file
+URLS = [
+
+]
+
+PLAYLISTS = [
+
+]
+
+"""
 
 def main():
     os.makedirs("converted", exist_ok=True)
