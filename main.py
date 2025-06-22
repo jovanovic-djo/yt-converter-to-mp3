@@ -1,31 +1,41 @@
 import os
 import yt_dlp
-from data import URLS
-
-
-"""
-        # You can add your songs/content to this playlist.
-URLS = [
-    "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-]
-"""
+from data import URLS, PLAYLISTS
 
 def main():
     os.makedirs("converted", exist_ok=True)
     
-    ydl_opts = {
+    video_opts = {
         'format': 'bestaudio/best',
         'outtmpl': 'converted/%(title)s.%(ext)s',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3'
+            'preferredcodec': 'mp3',
         }],
+        'noplaylist': True,
     }
     
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+    playlist_opts = {
+        'format': 'bestaudio/best',
+        'outtmpl': 'converted/%(title)s.%(ext)s',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+        }],
+        'noplaylist': False,
+    }
+    
+    with yt_dlp.YoutubeDL(video_opts) as ydl:
         for url in URLS:
             try:
                 ydl.download([url])
+            except:
+                continue
+    
+    with yt_dlp.YoutubeDL(playlist_opts) as ydl:
+        for playlist_url in PLAYLISTS:
+            try:
+                ydl.download([playlist_url])
             except:
                 continue
 
